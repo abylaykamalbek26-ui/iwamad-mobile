@@ -46,7 +46,7 @@ export default function EventsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>
-        Long-press an event to save it. Saved: {savedIds.length}
+        Swipe or long-press an event to save it. Saved: {savedIds.length}
       </Text>
       <TextInput
         style={styles.input}
@@ -62,9 +62,9 @@ export default function EventsScreen() {
         renderItem={({ item }) => (
           <EventRow
             event={item}
-            isSaved={savedIds.includes(item.id)}
+            saved={savedIds.includes(item.id)}
             onPress={() => router.push(`/events/${item.id}`)}
-            onLongPress={() => toggleSaved(item.id)}
+            onToggleSaved={() => toggleSaved(item.id)}
           />
         )}
         ListEmptyComponent={<Text style={styles.emptyText}>No events match</Text>}
