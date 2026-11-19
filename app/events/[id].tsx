@@ -7,6 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import { useEvents } from '../../src/hooks/useEvents';
+import { HolidayNote } from '../../src/components/HolidayNote';
 
 export default function EventDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -50,6 +51,7 @@ export default function EventDetailScreen() {
       <Stack.Screen options={{ title: event.title }} />
       <Text style={styles.title}>{event.title}</Text>
       <Text>{event.date}</Text>
+      <HolidayNote date={event.date} />
       <Text>{event.place}</Text>
       <Text>Seats: {event.seats}</Text>
     </View>

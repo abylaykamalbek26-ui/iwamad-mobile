@@ -10,18 +10,13 @@ import {
 } from 'react-native';
 import { router } from 'expo-router';
 import { useEvents } from '../../src/hooks/useEvents';
+import { useSavedIds } from '../../src/hooks/useSavedIds';
 import { EventRow } from '../../src/components/EventRow';
 
 export default function EventsScreen() {
   const [search, setSearch] = useState('');
-  const [savedIds, setSavedIds] = useState<number[]>([]);
+  const { savedIds, toggleSaved } = useSavedIds();
   const { data, isPending, isError, error, refetch, isRefetching } = useEvents();
-
-  const toggleSave = (id: number) => {
-    setSavedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
-  };
 
   if (isPending) {
     return (
@@ -69,7 +64,7 @@ export default function EventsScreen() {
             event={item}
             isSaved={savedIds.includes(item.id)}
             onPress={() => router.push(`/events/${item.id}`)}
-            onLongPress={() => toggleSave(item.id)}
+            onLongPress={() => toggleSaved(item.id)}
           />
         )}
         ListEmptyComponent={<Text style={styles.emptyText}>No events match</Text>}
